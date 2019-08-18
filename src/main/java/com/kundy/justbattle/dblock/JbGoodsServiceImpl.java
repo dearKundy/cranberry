@@ -39,4 +39,9 @@ public class JbGoodsServiceImpl implements JbGoodsService {
     public boolean updateStockByIdAndVersion(Integer id, Integer version) {
         return this.mapper.updateStockByIdAndVersion(id, version);
     }
+
+    @Override
+    public boolean updateStockByIdWithSmallGranularityLock(Integer id) {
+        return this.mapper.updateStockByIdWithSmallGranularityLock(id);
+    }
 }

@@ -60,7 +60,7 @@ public class JustBattleApplicationTests {
 
         for (int i = 0; i < 10; i++) {
             new Thread(() -> {
-                this.optimismLock.sale(1);
+                this.optimismLock.saleWithSmallGranularityLock(1);
                 latch.countDown();
             }).start();
         }

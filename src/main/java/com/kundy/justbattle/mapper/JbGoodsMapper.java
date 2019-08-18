@@ -19,4 +19,6 @@ public interface JbGoodsMapper {
 
     boolean updateStockByIdAndVersion(@Param("id") Integer id, @Param("version") Integer version);
 
+    boolean updateStockByIdWithSmallGranularityLock(Integer id);
+
 }

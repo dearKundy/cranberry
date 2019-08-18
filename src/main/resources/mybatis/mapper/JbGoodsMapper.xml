@@ -29,5 +29,9 @@
         UPDATE jb_goods SET stock = stock - 1,version = version + 1 WHERE id = #{id} AND version = #{version}
     </update>
 
+    <update id="updateStockByIdWithSmallGranularityLock">
+        UPDATE jb_goods SET stock = stock - 1 WHERE id = #{id} AND stock - 1 >= 0
+    </update>
+
 
 </mapper>
