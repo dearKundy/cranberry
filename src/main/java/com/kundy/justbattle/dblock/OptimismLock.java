@@ -1,7 +1,6 @@
 package com.kundy.justbattle.dblock;
 
 import com.kundy.justbattle.model.po.JbGoodsPo;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +38,8 @@ public class OptimismLock {
     }
 
     /**
-     * 降低乐观锁粒度
+     * 降低乐观锁粒度，其实就是将 判断库存+扣减库存放在一个SQL中（原子化）
+     * 经过优化之后，第一步的 select 就算不用了也是可以的，但是为了避免每次请求都去UPDATE，可以加一个。
      */
     public boolean saleWithSmallGranularityLock(Integer id) {
         Integer stock = this.service.list(id).getStock();
@@ -56,7 +56,7 @@ public class OptimismLock {
                 System.out.println("成功售出商品一件！");
                 return true;
             }
-            System.out.println("获取乐观锁失败。。。");
+            System.out.println("商品已售罄。。。");
             return false;
         }
         System.out.println("库存不足");

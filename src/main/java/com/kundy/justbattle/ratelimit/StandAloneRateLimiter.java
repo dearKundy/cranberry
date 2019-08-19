@@ -6,14 +6,15 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * 单机限流 - 计数器算法实现
  * <p>
- * 1. 需要保证 StandAloneRateLimit 单例，交给 Spring 管理就好。
+ * 1. 需要保证 StandAloneRateLimiter 单例，交给 Spring 管理就好。
  * 2. 每个限流器通过 raterName 区分。
  * 3. 新建一个限流器，调用 addRater 即可。
+ * 4. 调用 tryAcquire 获取许可。
  *
  * @author kundy
  * @date 2019/8/19 10:21 PM
  */
-public class StandAloneRateLimit {
+public class StandAloneRateLimiter {
 
     private static final Integer ONE_SECOND = 1000;
     private Integer perSecondRate = 100;
@@ -22,7 +23,7 @@ public class StandAloneRateLimit {
     private ConcurrentHashMap<String, AtomicLong> counterMap = new ConcurrentHashMap<>();
 
 
-    public StandAloneRateLimit() {
+    public StandAloneRateLimiter() {
 
     }
 
@@ -33,6 +34,9 @@ public class StandAloneRateLimit {
         counterMap.put(raterName, new AtomicLong(0));
     }
 
+    /**
+     * 获取许可
+     */
     public boolean tryAcquire(String raterName) {
         if (!timeMap.containsKey(raterName)) {
             throw new RuntimeException("rater not exist");
