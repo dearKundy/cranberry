@@ -37,7 +37,7 @@ public class DbDistributedLock {
     /**
      * 非阻塞版本
      */
-    public boolean lock() {
+    public boolean tryLock() {
         boolean result = false;
         try {
             result = this.lockService.addMethod(this.getCallerMethodName());
@@ -80,7 +80,7 @@ public class DbDistributedLock {
     }
 
     /**
-     * 获取当前调用 lock 方法的方法名
+     * 获取当前调用 tryLock 方法的方法名
      */
     private String getCallerMethodName() {
         String callerMethodName = Thread.currentThread().getStackTrace()[3].toString();

@@ -10,6 +10,8 @@ import com.kundy.justbattle.transaction.ProgrammingTx;
 import com.kundy.justbattle.transaction.TemplateTx;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -17,7 +19,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -120,11 +124,13 @@ public class JustBattleApplicationTests {
 
         Integer[] ports = {8083};
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 10; i++) {
             new Thread(() -> {
-                Integer port = getPortRandom(ports);
-                String url = "http://localhost:" + port + "/testDbDistributedLock";
-                this.restTemplate.getForObject(url, String.class);
+                for (int j = 0; j < 10; j++) {
+                    Integer port = getPortRandom(ports);
+                    String url = "http://localhost:" + port + "/testRedisDistributedLock";
+                    this.restTemplate.getForObject(url, String.class);
+                }
             }).start();
         }
 
@@ -138,5 +144,7 @@ public class JustBattleApplicationTests {
     private static Integer getPortRandom(Integer[] ports) {
         return ports[new Random().nextInt(ports.length)];
     }
+
+
 
 }
