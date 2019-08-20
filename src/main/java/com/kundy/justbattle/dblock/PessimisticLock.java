@@ -1,6 +1,7 @@
 package com.kundy.justbattle.dblock;
 
 import com.kundy.justbattle.model.po.JbGoodsPo;
+import com.kundy.justbattle.service.JbGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,6 +1,7 @@
 package com.kundy.justbattle.transaction;
 
 import com.kundy.justbattle.model.po.JbUserPo;
+import com.kundy.justbattle.service.JbUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

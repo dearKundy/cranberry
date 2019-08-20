@@ -1,4 +1,4 @@
-package com.kundy.justbattle.transaction;
+package com.kundy.justbattle.service;
 
 import com.kundy.justbattle.model.po.JbUserPo;
 

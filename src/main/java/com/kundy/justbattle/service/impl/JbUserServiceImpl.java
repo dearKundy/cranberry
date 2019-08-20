@@ -1,15 +1,11 @@
-package com.kundy.justbattle.transaction;
+package com.kundy.justbattle.service.impl;
 
 import com.kundy.justbattle.mapper.JbUserMapper;
 import com.kundy.justbattle.model.po.JbUserPo;
-import com.kundy.justbattle.transaction.JbUserService;
+import com.kundy.justbattle.service.JbUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 /**
  * Spring 事务测试

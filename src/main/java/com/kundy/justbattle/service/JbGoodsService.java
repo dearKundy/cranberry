@@ -1,4 +1,4 @@
-package com.kundy.justbattle.dblock;
+package com.kundy.justbattle.service;
 
 import com.kundy.justbattle.model.po.JbGoodsPo;
 

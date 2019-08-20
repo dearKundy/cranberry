@@ -1,4 +1,4 @@
-package com.kundy.justbattle.ratelimit;
+package com.kundy.justbattle.ratelimiter;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;

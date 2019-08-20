@@ -1,7 +1,8 @@
-package com.kundy.justbattle.dblock;
+package com.kundy.justbattle.service.impl;
 
 import com.kundy.justbattle.mapper.JbGoodsMapper;
 import com.kundy.justbattle.model.po.JbGoodsPo;
+import com.kundy.justbattle.service.JbGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

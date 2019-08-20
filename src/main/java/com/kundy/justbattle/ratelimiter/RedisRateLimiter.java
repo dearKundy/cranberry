@@ -1,4 +1,4 @@
-package com.kundy.justbattle.ratelimit;
+package com.kundy.justbattle.ratelimiter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
