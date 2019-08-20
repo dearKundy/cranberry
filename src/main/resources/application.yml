@@ -1,3 +1,6 @@
+server:
+  port: 8083
+
 mysql:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -11,4 +14,5 @@ mybatis:
 logging:
   level:
     com.kundy.justbattle.mapper: debug
+    com.kundy.justbattle.mapper.JbMethodLockMapper: warn
 

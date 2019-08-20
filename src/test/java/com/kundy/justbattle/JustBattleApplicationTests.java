@@ -2,8 +2,9 @@ package com.kundy.justbattle;
 
 import com.kundy.justbattle.dblock.OptimismLock;
 import com.kundy.justbattle.dblock.PessimisticLock;
+import com.kundy.justbattle.distributedlock.DbDistributedLock;
 import com.kundy.justbattle.model.po.JbUserPo;
-import com.kundy.justbattle.ratelimit.RedisRateLimiter;
+import com.kundy.justbattle.ratelimiter.RedisRateLimiter;
 import com.kundy.justbattle.transaction.AnnotationTx;
 import com.kundy.justbattle.transaction.ProgrammingTx;
 import com.kundy.justbattle.transaction.TemplateTx;
@@ -12,9 +13,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 
 @RunWith(SpringRunner.class)
@@ -41,6 +43,12 @@ public class JustBattleApplicationTests {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private DbDistributedLock dbDistributedLock;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Test
     public void testProgramingTx() {
@@ -105,6 +113,30 @@ public class JustBattleApplicationTests {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testDbDistributedLock() {
+
+        Integer[] ports = {8083};
+
+        for (int i = 0; i < 50; i++) {
+            new Thread(() -> {
+                Integer port = getPortRandom(ports);
+                String url = "http://localhost:" + port + "/testDbDistributedLock";
+                this.restTemplate.getForObject(url, String.class);
+            }).start();
+        }
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static Integer getPortRandom(Integer[] ports) {
+        return ports[new Random().nextInt(ports.length)];
     }
 
 }
