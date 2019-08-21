@@ -8,10 +8,10 @@ import com.kundy.justbattle.ratelimiter.RedisRateLimiter;
 import com.kundy.justbattle.transaction.AnnotationTx;
 import com.kundy.justbattle.transaction.ProgrammingTx;
 import com.kundy.justbattle.transaction.TemplateTx;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.zookeeper.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,10 +19,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Random;
-import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class JustBattleApplicationTests {
@@ -145,6 +144,19 @@ public class JustBattleApplicationTests {
         return ports[new Random().nextInt(ports.length)];
     }
 
+    @Test
+    public void testZk() throws Exception {
+        ZooKeeper zk = new ZooKeeper("localhost:2181", 30000, new Watcher() {
+            @Override
+            public void process(WatchedEvent watchedEvent) {
+                log.info(watchedEvent.getState().toString());
+                log.info(watchedEvent.getType().toString());
+                log.info(watchedEvent.getPath());
+            }
+        });
+        zk.create("/myBoy", "肥胖美人".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT_SEQUENTIAL);
+
+    }
 
 
 }
