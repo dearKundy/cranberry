@@ -16,3 +16,7 @@ logging:
     com.kundy.justbattle.mapper: debug
     com.kundy.justbattle.mapper.JbMethodLockMapper: warn
 
+zk:
+  servers: 127.0.0.1:2181
+  connectionTimeout: 5000
+

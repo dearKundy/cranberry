@@ -9,6 +9,7 @@ import com.kundy.justbattle.transaction.AnnotationTx;
 import com.kundy.justbattle.transaction.ProgrammingTx;
 import com.kundy.justbattle.transaction.TemplateTx;
 import lombok.extern.slf4j.Slf4j;
+import org.I0Itec.zkclient.ZkClient;
 import org.apache.zookeeper.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,6 +53,9 @@ public class JustBattleApplicationTests {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private ZkClient zkClient;
 
     @Test
     public void testProgramingTx() {
@@ -158,5 +162,10 @@ public class JustBattleApplicationTests {
 
     }
 
-
+    @Test
+    public void test() {
+        for (int i = 0; i < 10; i++) {
+            System.out.println(System.identityHashCode(zkClient));
+        }
+    }
 }

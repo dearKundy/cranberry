@@ -8,5 +8,7 @@
     - 基于数据库实现
     - 基于 Redis 实现
     - Redisson 分布式锁的简单使用
-    - 基于 zk 实现
+    - 【TODO】基于 zk 实现 
     - Curator 分布式锁的简单使用
+- example
+    - zkClient 简单使用
