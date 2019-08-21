@@ -7,6 +7,8 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * CuratorDistributedLock 是 Netflix 公司开源的一套 zookeeper 客户端框架
  * <p>
@@ -18,8 +20,17 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 @Slf4j
 public class CuratorDistributedLock {
 
-    public static void main(String[] args) throws Exception {
+    public void doWork() throws Exception {
+        CuratorFramework client = this.initClient();
 
+        String lockPath = "/curator/lock";
+        this.doLockLogic(client, lockPath);
+
+        // 关闭客户端
+        client.close();
+    }
+
+    private CuratorFramework initClient() {
         // 重试策略
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
         // 创建 zk 客户端
@@ -27,20 +38,28 @@ public class CuratorDistributedLock {
 
         client.start();
 
-        //创建分布式锁, 锁空间的根节点路径为 /curator/lock
-        InterProcessMutex mutex = new InterProcessMutex(client, "/curator/lock");
+        return client;
+    }
 
-        // 尝试获取锁
-        mutex.acquire();
+    /**
+     * @param lockPath 锁空间的根节点路径
+     */
+    private void doLockLogic(CuratorFramework client, String lockPath) throws Exception {
 
-        log.info("Enter mutex");
+        //创建分布式锁
+        InterProcessMutex lock = new InterProcessMutex(client, lockPath);
 
-        // 释放锁
-        mutex.release();
-
-        // 关闭客户端
-        client.close();
-
+        // 尝试获取锁失败
+        if (!lock.acquire(5, TimeUnit.SECONDS)) {
+            throw new IllegalStateException("try acquire the lock fail");
+        }
+        try {
+            log.info("success to get the lock");
+        } finally {
+            log.info("success to releasing the lock");
+            // 释放锁
+            lock.release();
+        }
     }
 
 }
