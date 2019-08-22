@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Spring 事务测试
  * 1.
@@ -22,6 +24,11 @@ public class JbUserServiceImpl implements JbUserService {
 
     @Autowired
     private JbUserMapper mapper;
+
+    @Override
+    public List<Integer> listBlackUserId() {
+        return this.mapper.listBlackUserId();
+    }
 
     @Override
     public boolean save(JbUserPo userPo) {

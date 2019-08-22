@@ -1,8 +1,10 @@
 package com.kundy.justbattle;
 
+import com.google.common.hash.BloomFilter;
 import com.kundy.justbattle.dblock.OptimismLock;
 import com.kundy.justbattle.dblock.PessimisticLock;
 import com.kundy.justbattle.distributedlock.DbDistributedLock;
+import com.kundy.justbattle.mapper.JbUserMapper;
 import com.kundy.justbattle.model.po.JbGoodsPo;
 import com.kundy.justbattle.model.po.JbUserPo;
 import com.kundy.justbattle.ratelimiter.RedisRateLimiter;
@@ -13,15 +15,17 @@ import com.kundy.justbattle.transaction.ProgrammingTx;
 import com.kundy.justbattle.transaction.TemplateTx;
 import lombok.extern.slf4j.Slf4j;
 import org.I0Itec.zkclient.ZkClient;
-import org.apache.zookeeper.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 
@@ -65,6 +69,13 @@ public class JustBattleApplicationTests {
 
     @Autowired
     private DbCacheDoubleWriteConsistency dbCacheDoubleWriteConsistency;
+
+    @Autowired
+    private JbUserMapper jbUserMapper;
+
+    @Autowired
+    @Qualifier("userBlackBloomFilter")
+    private BloomFilter<Integer> userBlackBloomFilter;
 
     @Test
     public void testProgramingTx() {
@@ -209,6 +220,18 @@ public class JustBattleApplicationTests {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 测试用户黑名单布隆过滤器
+     */
+    @Test
+    public void testUserBlackBloomFilter() {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 100000; i++) {
+            System.out.println(this.userBlackBloomFilter.mightContain(i));
+        }
+        System.out.println("cost time: " + (System.currentTimeMillis() - start) + " ms");
     }
 
 

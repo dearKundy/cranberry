@@ -12,6 +12,4 @@ public class JustBattleApplication {
         SpringApplication.run(JustBattleApplication.class, args);
     }
 
-
-
 }
