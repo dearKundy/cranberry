@@ -12,3 +12,5 @@
     - Curator 分布式锁的简单使用
 - example
     - zkClient 简单使用
+- redis 常见问题
+    - 数据库缓存双写一致性

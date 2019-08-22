@@ -16,6 +16,11 @@ public interface JbGoodsService {
     JbGoodsPo list(Integer id);
 
     /**
+     * 查询货物信息 - 缓存版
+     */
+    JbGoodsPo listInCache(Integer id);
+
+    /**
      * 加排它锁查询货物信息
      */
     JbGoodsPo listForUpdate(Integer id);
@@ -39,5 +44,6 @@ public interface JbGoodsService {
      * 使用更加小粒度的乐观锁更新库存
      */
     boolean updateStockByIdWithSmallGranularityLock(Integer id);
+
 
 }

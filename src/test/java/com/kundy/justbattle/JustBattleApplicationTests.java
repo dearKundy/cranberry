@@ -3,8 +3,11 @@ package com.kundy.justbattle;
 import com.kundy.justbattle.dblock.OptimismLock;
 import com.kundy.justbattle.dblock.PessimisticLock;
 import com.kundy.justbattle.distributedlock.DbDistributedLock;
+import com.kundy.justbattle.model.po.JbGoodsPo;
 import com.kundy.justbattle.model.po.JbUserPo;
 import com.kundy.justbattle.ratelimiter.RedisRateLimiter;
+import com.kundy.justbattle.redisproblem.DbCacheDoubleWriteConsistency;
+import com.kundy.justbattle.service.JbGoodsService;
 import com.kundy.justbattle.transaction.AnnotationTx;
 import com.kundy.justbattle.transaction.ProgrammingTx;
 import com.kundy.justbattle.transaction.TemplateTx;
@@ -56,6 +59,12 @@ public class JustBattleApplicationTests {
 
     @Autowired
     private ZkClient zkClient;
+
+    @Autowired
+    private JbGoodsService goodsService;
+
+    @Autowired
+    private DbCacheDoubleWriteConsistency dbCacheDoubleWriteConsistency;
 
     @Test
     public void testProgramingTx() {
@@ -148,24 +157,59 @@ public class JustBattleApplicationTests {
         return ports[new Random().nextInt(ports.length)];
     }
 
+    /**
+     * 数据库缓存双写一致性【方案一测试】
+     */
     @Test
-    public void testZk() throws Exception {
-        ZooKeeper zk = new ZooKeeper("localhost:2181", 30000, new Watcher() {
-            @Override
-            public void process(WatchedEvent watchedEvent) {
-                log.info(watchedEvent.getState().toString());
-                log.info(watchedEvent.getType().toString());
-                log.info(watchedEvent.getPath());
-            }
-        });
-        zk.create("/myBoy", "肥胖美人".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT_SEQUENTIAL);
+    public void testDbCacheConsistencyOne() {
+        new Thread(() -> {
+            this.dbCacheDoubleWriteConsistency.updateWithBugVersionOne(new JbGoodsPo().setId(1).setName("捡肥皂 version 3"), 10);
+        }).start();
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        new Thread(() -> {
+            this.dbCacheDoubleWriteConsistency.updateWithBugVersionOne(new JbGoodsPo().setId(1).setName("捡肥皂 version 4"), 10);
+        }).start();
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
+    /**
+     * 数据库缓存双写一致性【方案二测试】
+     */
     @Test
-    public void test() {
-        for (int i = 0; i < 10; i++) {
-            System.out.println(System.identityHashCode(zkClient));
+    public void testDbCacheConsistencyTwo() {
+        new Thread(() -> {
+            this.dbCacheDoubleWriteConsistency.updateWithBugVersionTwo(new JbGoodsPo().setId(1).setName("捡肥皂 version 7"), 2000);
+        }).start();
+
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        new Thread(() -> {
+            this.goodsService.listInCache(1);
+        }).start();
+
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
+
+
 }
