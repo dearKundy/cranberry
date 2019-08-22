@@ -2,8 +2,15 @@
 # 主要内容
 
 - Spring 事务
-- 数据库 悲观锁 VS 乐观锁
-- 单机限流 VS 分布式限流
+    - 编程式事务【基于 PlatformTransactionManager】
+    - 编程式事务【基于 TransactionTemplate】
+    - 声明式事务【基于 @Transactional 注解】
+- 数据库锁
+    - 悲观锁
+    - 乐观锁
+- 限流     
+    - 单机限流【计数器算法实现】
+    - 分布式限流【基于 redis 实现】
 - 分布式锁
     - 基于数据库实现
     - 基于 Redis 实现

@@ -26,7 +26,7 @@ public class TemplateTx {
     private TransactionTemplate txTemplate;
 
     public boolean go(JbUserPo userPo) {
-        return (boolean) txTemplate.execute(new TransactionCallback<Boolean>() {
+        return txTemplate.execute(new TransactionCallback<Boolean>() {
 
             boolean result = false;
 
