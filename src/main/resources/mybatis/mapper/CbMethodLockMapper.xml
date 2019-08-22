@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kundy.cranberry.mapper.CbMethodLockMapper">
+
+    <insert id="addMethod">
+        INSERT INTO
+        jb_method_Lock
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="methodName != null">method_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="methodName != null">#{methodName},</if>
+        </trim>
+    </insert>
+
+    <delete id="deleteMethod">
+        DELETE FROM jb_method_Lock WHERE method_name = #{methodName}
+    </delete>
+
+</mapper>

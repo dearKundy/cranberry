@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kundy.cranberry.mapper.CbGoodsMapper">
+
+
+    <select id="list" resultType="com.kundy.cranberry.model.po.CbGoodsPo">
+        SELECT * FROM jb_goods WHERE id = #{id}
+    </select>
+    <select id="listForUpdate" resultType="com.kundy.cranberry.model.po.CbGoodsPo">
+        SELECT * FROM jb_goods WHERE id = #{id} FOR UPDATE
+    </select>
+
+    <update id="update" parameterType="com.kundy.cranberry.model.po.CbGoodsPo">
+        UPDATE jb_goods
+        <set>
+            <if test="name != null and name != ''">name=#{name},</if>
+            <if test="stock != null and stock != ''">stock=#{stock},</if>
+            <if test="version != null and version != ''">version=#{version},</if>
+        </set>
+        WHERE id = #{id}
+
+    </update>
+
+    <update id="updateStockById">
+        UPDATE jb_goods SET stock = stock - 1 WHERE id = #{id}
+    </update>
+
+    <update id="updateStockByIdAndVersion">
+        UPDATE jb_goods SET stock = stock - 1,version = version + 1 WHERE id = #{id} AND version = #{version}
+    </update>
+
+    <update id="updateStockByIdWithSmallGranularityLock">
+        UPDATE jb_goods SET stock = stock - 1 WHERE id = #{id} AND stock - 1 >= 0
+    </update>
+
+
+</mapper>

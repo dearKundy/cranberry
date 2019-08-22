@@ -11,9 +11,9 @@
     </parent>
 
     <groupId>com.kundy</groupId>
-    <artifactId>just-battle</artifactId>
+    <artifactId>cranberry</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>just-battle</name>
+    <name>cranberry</name>
     <description>Project for javaweb combat based on SpringBoot</description>
 
     <properties>
