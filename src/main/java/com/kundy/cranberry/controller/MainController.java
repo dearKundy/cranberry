@@ -27,6 +27,7 @@ public class MainController {
     @Autowired
     private RedisDistributedLock redisDistributedLock;
 
+
     @GetMapping("/testDbDistributedLock")
     public String testDbDistributedLock() {
         if (this.dbDistributedLock.lockWithBlock()) {

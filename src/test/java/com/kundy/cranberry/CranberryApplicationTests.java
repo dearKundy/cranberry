@@ -1,8 +1,9 @@
 package com.kundy.cranberry;
 
-import com.google.common.hash.BloomFilter;
+import com.csvreader.CsvReader;
 import com.kundy.cranberry.dblock.OptimismLock;
 import com.kundy.cranberry.dblock.PessimisticLock;
+import com.kundy.cranberry.deduplication.Deduplication;
 import com.kundy.cranberry.distributedlock.DbDistributedLock;
 import com.kundy.cranberry.mapper.CbUserMapper;
 import com.kundy.cranberry.model.po.CbGoodsPo;
@@ -18,12 +19,14 @@ import org.I0Itec.zkclient.ZkClient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 
@@ -71,9 +74,9 @@ public class CranberryApplicationTests {
     @Autowired
     private CbUserMapper jbUserMapper;
 
-    @Autowired
-    @Qualifier("userBlackBloomFilter")
-    private BloomFilter<Integer> userBlackBloomFilter;
+//    @Autowired
+//    @Qualifier("userBlackBloomFilter")
+//    private BloomFilter<Integer> userBlackBloomFilter;
 
     @Test
     public void testProgramingTx() {
@@ -220,17 +223,36 @@ public class CranberryApplicationTests {
         }
     }
 
-    /**
-     * 测试用户黑名单布隆过滤器
-     */
     @Test
-    public void testUserBlackBloomFilter() {
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < 100000; i++) {
-            System.out.println(this.userBlackBloomFilter.mightContain(i));
+    public void testReadCsv() {
+        String filePath = "/Users/kun/Desktop/testCsv.csv";
+        try {
+            CsvReader csvReader = new CsvReader(filePath);
+
+            // 读表头
+            csvReader.readHeaders();
+
+            // 读内容
+            while (csvReader.readRecord()) {
+                // 读一整行
+                System.out.println(csvReader.getRawRecord());
+                // 读该行的某一列
+                System.out.println(csvReader.get("name"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        System.out.println("cost time: " + (System.currentTimeMillis() - start) + " ms");
     }
 
+    @Autowired
+    private Deduplication deduplicateUtils;
+
+    @Test
+    public void testDeduplicateUtils() {
+        // 待去重 List
+        List<String> compareList = Arrays.asList("11", "12", "13", "14", "15", "16");
+        List<String> result = deduplicateUtils.go(compareList, "wechat");
+        log.info("去重之后的结果：{}", result);
+    }
 
 }

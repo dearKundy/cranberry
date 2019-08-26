@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kundy.cranberry.mapper.DeduplicationBloomFilterMapper">
+
+    <select id="isTableExist" resultType="java.lang.String">
+        SHOW TABLES LIKE #{tableName}
+    </select>
+
+    <update id="createTable">
+        CREATE TABLE ${tableName} (
+          `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+          `identifier` varchar(255) NOT NULL DEFAULT '' COMMENT '标识字段',
+          `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间，自动生成',
+          `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '保存数据时间，自动生成',
+          PRIMARY KEY (`id`),
+          UNIQUE KEY `uidx_key` (`identifier`) USING BTREE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='业务去重表';
+    </update>
+
+    <select id="listIdentifier" resultType="string">
+        SELECT identifier FROM ${tableName}
+        <if test="offset != null and limit != null">
+            LIMIT
+            #{offset},#{limit}
+        </if>
+
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM ${tableName}
+    </select>
+
+    <insert id="batchSave" parameterType="map">
+        INSERT INTO ${tableName}(identifier)
+        VALUES
+        <foreach collection="identifiers" item="item" separator=",">
+            (#{item})
+        </foreach>
+    </insert>
+
+</mapper>
