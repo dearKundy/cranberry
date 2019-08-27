@@ -106,7 +106,6 @@ public class DeduplicationApplicationListener implements ApplicationListener<App
         for (String key : keys) {
             bloomFilter.put(key);
         }
-        //BUGFIX
         DeduplicationBloomFilter.INIT_STATUS.put(beanId, true);
         log.info("{}BloomFilter initialization , Add element cost time：{} ms.", beanId, (System.currentTimeMillis() - start));
     }

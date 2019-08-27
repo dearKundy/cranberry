@@ -245,13 +245,13 @@ public class CranberryApplicationTests {
     }
 
     @Autowired
-    private Deduplication deduplicateUtils;
+    private Deduplication deduplication;
 
     @Test
     public void testDeduplicateUtils() {
         // 待去重 List
         List<String> compareList = Arrays.asList("11", "12", "13", "14", "15", "16");
-        List<String> result = deduplicateUtils.go(compareList, "wechat");
+        List<String> result = deduplication.go(compareList, "wechat");
         log.info("去重之后的结果：{}", result);
     }
 

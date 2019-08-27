@@ -60,7 +60,6 @@ public class DeduplicationBeanDefinitionRegistry implements BeanDefinitionRegist
             expectedInsertions = Integer.valueOf((String) expectedInsertionsMap.get(beanId));
         }
         Integer finalExpectedInsertions = expectedInsertions;
-        log.info("beanId={} expectedInsertions={}", beanId, finalExpectedInsertions);
         BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(BloomFilter.class, () -> {
                     return BloomFilter.create(Funnels.stringFunnel(Charsets.UTF_8), finalExpectedInsertions, FPP);
                 }
@@ -68,6 +67,5 @@ public class DeduplicationBeanDefinitionRegistry implements BeanDefinitionRegist
         BeanDefinition bloomFilterDefinition = beanDefinitionBuilder.getRawBeanDefinition();
         ((DefaultListableBeanFactory) beanFactory).registerBeanDefinition(beanId, bloomFilterDefinition);
     }
-
 
 }
