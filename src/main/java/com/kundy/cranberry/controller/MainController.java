@@ -1,7 +1,7 @@
 package com.kundy.cranberry.controller;
 
-import com.kundy.cranberry.distributedlock.RedisDistributedLock;
-import com.kundy.cranberry.distributedlock.DbDistributedLock;
+import com.kundy.cranberry.systemdesign.distributedlock.RedisDistributedLock;
+import com.kundy.cranberry.systemdesign.distributedlock.DbDistributedLock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
