@@ -51,7 +51,7 @@
 - Java SPI 机制
 - 多线程
     - 工具
-        - [CountDownLatch、CyclicBarrier、Semaphore](https://github.com/dearKundy/cranberry/docs/javabasis/multithread/tools/CountDownLatch、CyclicBarrier、Semaphore.md)
+        - [CountDownLatch、CyclicBarrier、Semaphore](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/multithread/tools/CountDownLatch、CyclicBarrier、Semaphore.md)
 
 
 ## 算法
