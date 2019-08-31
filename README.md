@@ -54,6 +54,7 @@
 - 多线程
     - [并发编程知识点大杂烩](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/multithread/并发编程知识点大杂烩.md)
     - [CountDownLatch、CyclicBarrier、Semaphore](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/multithread/CountDownLatch、CyclicBarrier、Semaphore.md)
+    - [Java内存模型与线程 【volatile、ThreadLocal 深入探讨】](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/multithread/Java内存模型与线程.md)
 - [Java 集合](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/Java集合.md)
 
 ## 算法
