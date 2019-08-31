@@ -1,4 +1,5 @@
-
+![WechatIMG529.jpeg](https://i.loli.net/2019/08/31/9yRMxiwvEs7mH1W.jpg)
+![WechatIMG530.jpeg](https://i.loli.net/2019/08/31/ZkFdrHJI4SGU3Cg.jpg)
 ## List
 List 可以根据索引随机访问元素。
 - `线程不安全`：
