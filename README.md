@@ -52,7 +52,7 @@
 - 多线程
     - 工具
         - [CountDownLatch、CyclicBarrier、Semaphore](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/multithread/tools/CountDownLatch、CyclicBarrier、Semaphore.md)
-
+- [Java 集合](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/Java集合.md)
 
 ## 算法
 - 排序
