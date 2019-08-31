@@ -61,6 +61,7 @@
     - [CountDownLatch、CyclicBarrier、Semaphore](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/multithread/CountDownLatch、CyclicBarrier、Semaphore.md)
     - [Java内存模型与线程 【volatile、ThreadLocal 深入探讨】](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/multithread/Java内存模型与线程.md)
 - [Java 集合](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/Java集合.md)
+- [类加载机制](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/类加载机制.md)
 
 ## 算法
 - 排序
