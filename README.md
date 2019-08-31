@@ -16,7 +16,7 @@
     - [Curator 分布式锁的简单使用](https://github.com/dearKundy/cranberry/blob/master/src/main/java/com/kundy/cranberry/systemdesign/distributedlock/CuratorDistributedLock.java)
 - example
     - [zkClient 简单使用](https://github.com/dearKundy/cranberry/blob/master/src/main/java/com/kundy/cranberry/systemdesign/example/ZkExample.java)
-- redis 常见问题
+- [redis 常见问题](https://github.com/dearKundy/cranberry/blob/master/docs/systemdesign/redis常见问题.md)
     - [数据库缓存双写一致性](https://github.com/dearKundy/cranberry/blob/master/src/main/java/com/kundy/cranberry/systemdesign/redisproblem/DbCacheDoubleWriteConsistency.java)
 - 布隆过滤器
     - [简单手撸实现](https://github.com/dearKundy/cranberry/blob/master/src/main/java/com/kundy/cranberry/systemdesign/bloomfilter/SimpleBloomFilter.java)
