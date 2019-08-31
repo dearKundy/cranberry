@@ -46,6 +46,7 @@
     - [声明式事务【基于 @Transactional 注解】](https://github.com/dearKundy/cranberry/blob/master/src/main/java/com/kundy/cranberry/thirdparty/transaction/AnnotationTx.java)
 - MySQL
     - [MySQL explain](https://github.com/dearKundy/cranberry/blob/master/docs/thridparty/mysql/explain.md)
+- [zookeeper](https://github.com/dearKundy/cranberry/blob/master/docs/thridparty/zookeeper.md)
 - [Git](https://github.com/dearKundy/cranberry/blob/master/docs/thridparty/git.md)
 
 ## Java 基础
