@@ -36,7 +36,7 @@
 
 ## 常用技术栈
 - [Spring](https://github.com/dearKundy/cranberry/blob/master/docs/thridparty/spring.md)
-- [MyBatis](https://github.com/dearKundy/cranberry/blob/master/docs/docs/thridparty/mybatis.md)
+- [MyBatis](https://github.com/dearKundy/cranberry/blob/master/docs/thridparty/mybatis.md)
 - Spring 事务
     - [编程式事务【基于 PlatformTransactionManager】](https://github.com/dearKundy/cranberry/blob/master/src/main/java/com/kundy/cranberry/thirdparty/transaction/ProgrammingTx.java)
     - [编程式事务【基于 TransactionTemplate】](https://github.com/dearKundy/cranberry/blob/master/src/main/java/com/kundy/cranberry/thirdparty/transaction/TemplateTx.java)
