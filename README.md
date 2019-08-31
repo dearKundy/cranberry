@@ -53,8 +53,7 @@
 - [Java SPI 机制](https://github.com/dearKundy/cranberry/tree/master/src/main/java/com/kundy/cranberry/javabasis/spi)
 - 多线程
     - [并发编程知识点大杂烩](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/multithread/并发编程知识点大杂烩.md)
-    - 工具
-        - [CountDownLatch、CyclicBarrier、Semaphore](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/multithread/tools/CountDownLatch、CyclicBarrier、Semaphore.md)
+    - [CountDownLatch、CyclicBarrier、Semaphore](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/multithread/CountDownLatch、CyclicBarrier、Semaphore.md)
 - [Java 集合](https://github.com/dearKundy/cranberry/blob/master/docs/javabasis/Java集合.md)
 
 ## 算法
