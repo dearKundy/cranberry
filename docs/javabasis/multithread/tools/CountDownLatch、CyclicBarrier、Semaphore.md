@@ -3,7 +3,7 @@
 > J.U.C 中提供了三个同步工具CountDownLatch、CyclicBarrier、Semaphore，用来进行线程的任务协调。
 
 相关测试代码：
-- com.kundy.cranberry.javabasis.multithread.tools
+- [com.kundy.cranberry.javabasis.multithread.tools](https://github.com/dearKundy/cranberry/tree/master/src/main/java/com/kundy/cranberry/javabasis/multithread/tools)
 
 1. `CountDownLatch`：门闩
     - `使用场景`：一个任务需要等待其他 N 个任务完成才能执行。
