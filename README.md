@@ -22,6 +22,7 @@
     - [简单手撸实现](https://github.com/dearKundy/cranberry/blob/master/src/main/java/com/kundy/cranberry/systemdesign/bloomfilter/SimpleBloomFilter.java)
     - [guava 布隆过滤器实现通过去重工具](https://github.com/dearKundy/cranberry/tree/master/src/main/java/com/kundy/cranberry/systemdesign/deduplication)
 - [CAP 与 BASE 理论](https://github.com/dearKundy/cranberry/blob/master/docs/systemdesign/CAP与BASE理论.md)
+- [分布式系统一致性问题](https://github.com/dearKundy/cranberry/blob/master/docs/systemdesign/分布式系统一致性问题.md)
 - [设计模式](https://github.com/dearKundy/cranberry/blob/master/docs/systemdesign/设计模式.md)
     - [适配器模式](https://github.com/dearKundy/cranberry/tree/master/src/main/java/com/kundy/cranberry/systemdesign/designpattern/adapter)
     - [命令模式](https://github.com/dearKundy/cranberry/tree/master/src/main/java/com/kundy/cranberry/systemdesign/designpattern/command)
