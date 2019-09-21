@@ -5,7 +5,7 @@
 - 数据库锁
     - [悲观锁](https://github.com/dearKundy/cranberry/blob/master/src/main/java/com/kundy/cranberry/systemdesign/dblock/PessimisticLock.java)
     - [乐观锁](https://github.com/dearKundy/cranberry/blob/master/src/main/java/com/kundy/cranberry/systemdesign/dblock/OptimismLock.java)
-- [分布式主键生成策略](https://github.com/dearKundy/cranberry/blob/master/docs/systemdesign/分布式主键生成策略.md)    
+- [分布式主键生成策略](docs/systemdesign/分布式主键生成策略.md)    
 - 限流     
     - [单机限流【计数器算法实现】](https://github.com/dearKundy/cranberry/blob/master/src/main/java/com/kundy/cranberry/systemdesign/ratelimiter/StandAloneRateLimiter.java)
     - [分布式限流【基于 redis 实现】](https://github.com/dearKundy/cranberry/blob/master/src/main/java/com/kundy/cranberry/systemdesign/ratelimiter/RedisRateLimiter.java)
