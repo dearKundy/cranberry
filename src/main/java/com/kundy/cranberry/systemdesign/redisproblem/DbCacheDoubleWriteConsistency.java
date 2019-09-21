@@ -25,7 +25,7 @@ public class DbCacheDoubleWriteConsistency {
     private RedisTemplate redisTemplate;
 
     /**
-     * 方案一：先更新数据库，在更新缓存
+     * 方案一：先更新数据库，再更新缓存
      * <p>
      * bug：缓存中的为过期数据。
      * 1. 线程A 更新了数据库

@@ -1,16 +1,22 @@
 package com.kundy.cranberry;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.csvreader.CsvReader;
+import com.kundy.cranberry.config.MyBatisPlusConfig;
+import com.kundy.cranberry.mapper.CbGoodsPlusMapper;
+import com.kundy.cranberry.mapper.CbUserMapper;
+import com.kundy.cranberry.model.po.CbGoodsPo;
+import com.kundy.cranberry.model.po.CbUserPo;
+import com.kundy.cranberry.service.CbGoodsService;
 import com.kundy.cranberry.systemdesign.dblock.OptimismLock;
 import com.kundy.cranberry.systemdesign.dblock.PessimisticLock;
 import com.kundy.cranberry.systemdesign.deduplication.Deduplication;
 import com.kundy.cranberry.systemdesign.distributedlock.DbDistributedLock;
-import com.kundy.cranberry.mapper.CbUserMapper;
-import com.kundy.cranberry.model.po.CbGoodsPo;
-import com.kundy.cranberry.model.po.CbUserPo;
 import com.kundy.cranberry.systemdesign.ratelimiter.RedisRateLimiter;
 import com.kundy.cranberry.systemdesign.redisproblem.DbCacheDoubleWriteConsistency;
-import com.kundy.cranberry.service.CbGoodsService;
 import com.kundy.cranberry.thirdparty.transaction.AnnotationTx;
 import com.kundy.cranberry.thirdparty.transaction.ProgrammingTx;
 import com.kundy.cranberry.thirdparty.transaction.TemplateTx;
@@ -255,4 +261,95 @@ public class CranberryApplicationTests {
         log.info("去重之后的结果：{}", result);
     }
 
+    @Autowired
+    private CbGoodsPlusMapper goodsPlusMapper;
+
+    @Test
+    public void testMpSelect() {
+        List<CbGoodsPo> cbGoodsPos = this.goodsPlusMapper.selectList(null);
+        cbGoodsPos.forEach(System.out::println);
+    }
+
+    /**
+     * MP 条件查询
+     */
+    @Test
+    public void selectByWrapper() {
+        QueryWrapper<CbGoodsPo> queryWrapper = new QueryWrapper<>();
+        // select 不列出create_time和manager_id两列
+        queryWrapper.select(CbGoodsPo.class, info -> !info.getColumn().equals("create_time") &&
+                !info.getColumn().equals("manager_id"));
+        queryWrapper.like("name", "洗").gt("stock", 13);
+
+        List<CbGoodsPo> cbGoodsPos = goodsPlusMapper.selectList(queryWrapper);
+        cbGoodsPos.forEach(System.out::println);
+    }
+
+    /**
+     * MP 分页查询
+     */
+    @Test
+    public void selectPage() {
+        QueryWrapper<CbGoodsPo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.gt("stock", 0);
+
+        Page<CbGoodsPo> page = new Page<>(1, 2);
+        //不查询总记录数
+//        Page<CbGoodsPo> page = new Page<>(1, 2, false);
+
+        IPage<CbGoodsPo> iPage = goodsPlusMapper.selectPage(page, queryWrapper);
+        System.out.println("总页数" + iPage.getPages());
+        System.out.println("总记录数" + iPage.getTotal());
+        List<CbGoodsPo> goodsPos = iPage.getRecords();
+        goodsPos.forEach(System.out::println);
+    }
+
+    @Test
+    public void arInsertTest() {
+        CbGoodsPo cbGoodsPo = new CbGoodsPo().setName("防晒霜111").setStock(23);
+        boolean insert = cbGoodsPo.insert();
+        System.out.println("自增长id：" + cbGoodsPo.getId());
+    }
+
+    @Test
+    public void arSelectByIdTest() {
+        // 动态指定表名
+        MyBatisPlusConfig.myTableName.set("jb_goods_2019");
+        CbGoodsPo cbGoodsPo = new CbGoodsPo();
+        CbGoodsPo goodsSelect = cbGoodsPo.selectById(6);
+        System.out.println(cbGoodsPo == goodsSelect);
+        System.out.println(goodsSelect);
+    }
+
+    @Test
+    public void arSelectByIdTest2() {
+        CbGoodsPo cbGoodsPo = new CbGoodsPo().setId(6);
+        CbGoodsPo goodsSelect = cbGoodsPo.selectById();
+        System.out.println(cbGoodsPo == goodsSelect);
+        System.out.println(goodsSelect);
+    }
+
+    @Test
+    public void arUpdateTest() {
+        CbGoodsPo cbGoodsPo = new CbGoodsPo().setId(6).setName("防晒霜2");
+        boolean updateById = cbGoodsPo.updateById();
+        System.out.println(updateById);
+    }
+
+    @Test
+    public void arDeleteTest() {
+        CbGoodsPo cbGoodsPo = new CbGoodsPo().setId(6);
+        boolean updateById = cbGoodsPo.deleteById();
+        System.out.println(updateById);
+    }
+
+    /**
+     * 存在更新，不存在插入
+     */
+    @Test
+    public void arInsertOrUpdateTest() {
+        CbGoodsPo cbGoodsPo = new CbGoodsPo().setId(6).setName("防晒霜");
+        boolean updateById = cbGoodsPo.insertOrUpdate();
+        System.out.println(updateById);
+    }
 }

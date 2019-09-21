@@ -22,7 +22,8 @@ public class ZkConfig {
 
     @Bean
     public ZkClient zkClient() {
-        return new ZkClient(servers, connectionTimeout);
+//        return new ZkClient(servers, connectionTimeout);
+        return null;
     }
 
 }

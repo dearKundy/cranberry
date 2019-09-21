@@ -19,7 +19,7 @@ ${AnsiColor.YELLOW}
  * ======`-.____`-.___\_____/___.-`____.-'======
  * `=---='
  *          .............................................
- *           佛曰：bug泛滥，我已瘫痪！
+ *           佛曰：越挫越勇，盲目自信！
  */
  ${AnsiColor.CYAN}s
  Spring Boot Version: ${spring-boot.version}${spring-boot.formatted-version}
