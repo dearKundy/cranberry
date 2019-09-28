@@ -17,11 +17,14 @@ import com.kundy.cranberry.systemdesign.deduplication.Deduplication;
 import com.kundy.cranberry.systemdesign.distributedlock.DbDistributedLock;
 import com.kundy.cranberry.systemdesign.ratelimiter.RedisRateLimiter;
 import com.kundy.cranberry.systemdesign.redisproblem.DbCacheDoubleWriteConsistency;
+import com.kundy.cranberry.thirdparty.dozer.BeanA;
+import com.kundy.cranberry.thirdparty.dozer.BeanB;
 import com.kundy.cranberry.thirdparty.transaction.AnnotationTx;
 import com.kundy.cranberry.thirdparty.transaction.ProgrammingTx;
 import com.kundy.cranberry.thirdparty.transaction.TemplateTx;
 import lombok.extern.slf4j.Slf4j;
 import org.I0Itec.zkclient.ZkClient;
+import org.dozer.Mapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -352,4 +355,16 @@ public class CranberryApplicationTests {
         boolean updateById = cbGoodsPo.insertOrUpdate();
         System.out.println(updateById);
     }
+
+    @Autowired
+    private Mapper mapper;
+
+    @Test
+    public void testNotSameAttributeMapping() {
+        BeanA beanA = new BeanA().setId(1).setName("name").setFileA("fileA");
+
+        BeanB beanB = mapper.map(beanA, BeanB.class);
+        System.out.println(beanB);
+    }
+
 }
