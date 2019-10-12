@@ -2,11 +2,17 @@ conflict1
 dev-conflict1
 conflict2
 dev-conflict2
+dev-conflict2
 conflict3
 dev-conflict3
+dev-conflict3
+conflict4
+conflict4
 conflict4
 dev-conflict4
 conflict5
+dev-conflict5
+dev-conflict5
 dev-conflict5
 conflict6
 dev-conflict6
