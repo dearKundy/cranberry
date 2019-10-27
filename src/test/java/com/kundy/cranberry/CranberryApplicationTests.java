@@ -1,7 +1,6 @@
 package com.kundy.cranberry;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.csvreader.CsvReader;
@@ -22,6 +21,8 @@ import com.kundy.cranberry.thirdparty.dozer.BeanB;
 import com.kundy.cranberry.thirdparty.transaction.AnnotationTx;
 import com.kundy.cranberry.thirdparty.transaction.ProgrammingTx;
 import com.kundy.cranberry.thirdparty.transaction.TemplateTx;
+import com.kundy.cranberry.thirdparty.xsd.ApplicationConfig;
+import com.kundy.cranberry.thirdparty.xsd.ServiceBean;
 import lombok.extern.slf4j.Slf4j;
 import org.I0Itec.zkclient.ZkClient;
 import org.dozer.Mapper;
@@ -29,6 +30,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
@@ -42,6 +46,7 @@ import java.util.concurrent.CountDownLatch;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ImportResource(locations = {"classpath:kirito.xml"})
 public class CranberryApplicationTests {
 
     @Autowired
@@ -365,6 +370,15 @@ public class CranberryApplicationTests {
 
         BeanB beanB = mapper.map(beanA, BeanB.class);
         System.out.println(beanB);
+    }
+
+    @Test
+    public void testSchema(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:kirito.xml");
+        ServiceBean serviceBean = applicationContext.getBean(ServiceBean.class);
+        System.out.println(serviceBean.getName());
+        ApplicationConfig applicationConfig = applicationContext.getBean(ApplicationConfig.class);
+        System.out.println(applicationConfig.getName());
     }
 
 }

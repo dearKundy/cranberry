@@ -1,4 +1,4 @@
-package com.kundy.cranberry.javabasis.rmi;
+package com.kundy.cranberry.javabasis.rmi.basicversion;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

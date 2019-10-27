@@ -1,4 +1,4 @@
-package com.kundy.cranberry.javabasis.rmi;
+package com.kundy.cranberry.javabasis.rmi.basicversion;
 
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
@@ -29,12 +29,16 @@ public class RmiServer {
             /*
              * 远程对象必须被导出才能被远程调用者调用，它还会返回一个存根，这个存根将会发送给client端进行调用。
              * 当exportObject()方法被执行后，运行时会在一个新的Server Socket或共享Server Socket上进行监听，来接收对远程对象的远程调用。
+             *
+             * port：监听远程对象调用端口
              */
             RemoteHelloWord stub = (RemoteHelloWord) UnicastRemoteObject.exportObject(remoteHelloWord, 9999);
 
             /*
              * Java RMI 提供了registry API 可以允许应用程序把一个名称和远程对象的存根绑定在一起，这样client就可以通过这个绑定的名称很方便的查找到需要调用的远程对象了，
              * 在这里可以把registry看做是一个名称服务。
+             *
+             * port：名称服务端口（registry 端口）
              */
             LocateRegistry.createRegistry(1099);
 
