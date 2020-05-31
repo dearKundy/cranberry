@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.csvreader.CsvReader;
+import com.google.common.hash.BloomFilter;
 import com.kundy.cranberry.config.MyBatisPlusConfig;
 import com.kundy.cranberry.mapper.CbGoodsPlusMapper;
 import com.kundy.cranberry.mapper.CbUserMapper;
@@ -18,6 +19,9 @@ import com.kundy.cranberry.systemdesign.ratelimiter.RedisRateLimiter;
 import com.kundy.cranberry.systemdesign.redisproblem.DbCacheDoubleWriteConsistency;
 import com.kundy.cranberry.thirdparty.dozer.BeanA;
 import com.kundy.cranberry.thirdparty.dozer.BeanB;
+import com.kundy.cranberry.thirdparty.spring.SpringBeanLifeCycle;
+import com.kundy.cranberry.thirdparty.spring.factorybean.Boy;
+import com.kundy.cranberry.thirdparty.spring.factorybean.Person;
 import com.kundy.cranberry.thirdparty.transaction.AnnotationTx;
 import com.kundy.cranberry.thirdparty.transaction.ProgrammingTx;
 import com.kundy.cranberry.thirdparty.transaction.TemplateTx;
@@ -29,6 +33,7 @@ import org.dozer.Mapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ImportResource;
@@ -87,10 +92,6 @@ public class CranberryApplicationTests {
 
     @Autowired
     private CbUserMapper jbUserMapper;
-
-//    @Autowired
-//    @Qualifier("userBlackBloomFilter")
-//    private BloomFilter<Integer> userBlackBloomFilter;
 
     @Test
     public void testProgramingTx() {
@@ -373,12 +374,38 @@ public class CranberryApplicationTests {
     }
 
     @Test
-    public void testSchema(){
+    public void testSchema() {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:kirito.xml");
         ServiceBean serviceBean = applicationContext.getBean(ServiceBean.class);
         System.out.println(serviceBean.getName());
         ApplicationConfig applicationConfig = applicationContext.getBean(ApplicationConfig.class);
         System.out.println(applicationConfig.getName());
+    }
+
+    @Autowired
+    private SpringBeanLifeCycle springBeanLifeCycle;
+
+    @Test
+    public void testSpringBeanLifeCycle() {
+        System.out.println("begin....");
+        springBeanLifeCycle.setMsg("hahaha");
+        springBeanLifeCycle.sayHi();
+    }
+
+    @Autowired
+    private Person person;
+
+    @Test
+    public void testFactoryBean() {
+        person.sayHi();
+    }
+
+    @Autowired(required = false)
+    private Boy boy;
+
+    @Test
+    public void testRequired() {
+        boy.sayHi();
     }
 
 }

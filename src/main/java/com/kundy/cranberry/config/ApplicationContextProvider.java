@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 
 /**
  * 获取 Spring 上下文对象
+ * <p>
+ * 当一个类实现ApplicationContextAware接口后，当这个类被spring加载后，
+ * 就能够在这个类中获取到spring的上下文操作符ApplicationContext，
+ * 通过ApplicationContext 就能够轻松的获取所有的spring管理的bean。
  *
  * @author kundy
  * @date 2019/8/23 8:34 PM
@@ -24,6 +28,5 @@ public class ApplicationContextProvider implements ApplicationContextAware {
     public ApplicationContext getApplicationContext() {
         return this.applicationContext;
     }
-
 
 }

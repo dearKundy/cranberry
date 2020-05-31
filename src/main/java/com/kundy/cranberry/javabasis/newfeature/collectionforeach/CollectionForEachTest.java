@@ -39,7 +39,7 @@ public class CollectionForEachTest {
         // 使用 Java 8 forEach() 配搭 Lambda 语法
         list.forEach(s -> System.out.println(s));
 
-        // 使用 Java 8 forEach() 配搭 Lambda 即 Method References 语法
+        // 使用 Java 8 forEach() 配搭 Lambda 即 Method References 语法，相当于 s -> System.out.println(s)
         list.forEach(System.out::println);
 
     }
