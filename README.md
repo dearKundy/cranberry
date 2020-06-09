@@ -47,9 +47,16 @@
     - [声明式事务【基于 @Transactional 注解】](src/main/java/com/kundy/cranberry/thirdparty/transaction/AnnotationTx.java)
 - MySQL
     - [MySQL explain](docs/thridparty/mysql/explain.md)
+    - [MySQL常见问题](docs/thridparty/mysql/MySQL常见问题.md)
+    - [索引失效](docs/thridparty/mysql/索引失效.md)
+    - [B+树索引](docs/thridparty/mysql/B+树索引.md)
+    - [数据库事务]()
+    
 - [ZooKeeper](docs/thridparty/zookeeper.md)
 - [Git](docs/thridparty/git.md)
 - [Dozer](src/main/java/com/kundy/cranberry/thirdparty/dozer)
+- [guava常用方法](src/main/java/com/kundy/cranberry/thirdparty/guava/GuavaUsage.java)
+- [Linux 常用命令](docs/thridparty/Linux常用命令.md)
 
 ## Java 基础
 - 线程池
