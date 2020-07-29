@@ -151,5 +151,22 @@ Any comment provided for the index with a COMMENT attribute when the index was c
 #### Mybatis 中使用数据库小技巧
 - `SELECT` 语句 `WHERE` 条件加上 `ifnull` 判断。为了避免传入都是 null 时，做全表扫描，WHERE 需要增加一个不带 `ifnull` 的查询条件，或者，必须默认按照某个索引列的某个范围去查。
 
+#### 16. left join,right join,inner join,full join 区别
+```sql
+# 左表全部显示，右表能与左表匹配的数据则显示，否则为null
+SELECT * FROM table_a a LEFT JOIN table_b b ON a.id=b.id;
+
+# 右表全部显示，左表能与右表匹配的数据则显示，否则为null
+SELECT * FROM table_a a RIGHT JOIN table_b b ON a.id=b.id;
+
+# 左、右两个表匹配的才显示
+SELECT * FROM table_a a INNER JOIN table_b b ON a.id=b.id;
+
+# 笛卡尔积
+SELECT * FROM table_a,table_b;
+
+# 与上面等价，笛卡尔积
+SELECT * FROM table_a FULL JOIN table_b 
+```
 
 
