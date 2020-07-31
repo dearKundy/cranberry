@@ -34,6 +34,7 @@ public class AlternateOutput {
                 try {
                     lock.lock();
 
+                    // 假如当前count为偶数，阻塞
                     while (count % 2 == 0) {
                         conditionA.await();
                     }
@@ -62,6 +63,7 @@ public class AlternateOutput {
 
                     lock.lock();
 
+                    // 假如当前count为基数，阻塞
                     while (count % 2 != 0) {
                         conditionB.await();
                     }

@@ -1,4 +1,4 @@
-package com.kundy.cranberry.javabasis.threadpoolproblem;
+package com.kundy.cranberry.javabasis.multithread.threadpool.threadpoolproblem;
 
 import java.util.List;
 import java.util.concurrent.*;
@@ -189,7 +189,7 @@ public class ThreadPoolShutdown {
 
 
     public static void main(String[] args) throws Exception {
-        aboutAwaitTermination();
+        fixPoolNoShutdown();
 
     }
 }
